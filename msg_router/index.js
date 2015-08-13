@@ -25,12 +25,13 @@ module.exports = function(broker, message) {
 			var dest = pd.destination;
 			var additionalOptions = null;
 			var headers = null;
-			var message = null;
+			var messageString = null;
+			console.log('destination broker =' + brokerHost);
 			var ret = supportBrokerDestination(brokerHost);
 			if (ret.supported) {
 				additionalOptions = ret.additionalOptions;
 				headers = routedMsg.headers;
-				message = routedMsg.message;
+				messageString = routedMsg.message;
 			} else {
 				var ret = getForwardDestinationFromRoutingTable(brokerHost);
 				if (!ret)
@@ -42,11 +43,11 @@ module.exports = function(broker, message) {
 					dest = pd.destination;
 					additionalOptions = ret.additionalOptions;
 					headers = {presistence: true};
-					message = message.body;
+					messageString = message.body;
 				}
 			}
 			var broker = new StompRESTMsgBroker();
-			broker.send({destination: destinationUrl, additionalOptions: additionalOptions}, headers, message, function(err, receipt_id) {
+			broker.send({destination: destinationUrl, additionalOptions: additionalOptions}, headers, messageString, function(err, receipt_id) {
 				if (err)
 					console.error('!!! Error: ' + e.toString());
 				else {
