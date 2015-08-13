@@ -4,7 +4,7 @@
 		"xxx.yyy.zzz.com": {"auth": "@@Username@@:@@Password@@"}
 		,"ttt.uuu.vvv.com": {"auth": "@@Username@@:@@Password@@"}
 	}
-	,"routingTables":
+	,"routingTable":
 	{
 		"aaa.bbb.ccc.com":
 		{

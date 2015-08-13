@@ -13,7 +13,7 @@ function supportBrokerDestination(brokerHost) {
 }
 
 // get the forward destination object for the brokerHost
-function getForwardDestinationFromRoutingTable(brokerHost) {return (config["routingTables"] ? config["routingTables"][brokerHost] : null);}
+function getForwardDestinationFromRoutingTable(brokerHost) {return (config["routingTable"] ? config["routingTable"][brokerHost] : null);}
 
 module.exports = function(broker, message) {
 	try {
