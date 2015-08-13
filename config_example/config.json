@@ -1,0 +1,68 @@
+{
+	"supportedBrokerHosts":
+	{
+		"xxx.yyy.zzz.com": {"auth": "@@Username@@:@@Password@@"}
+		,"ttt.uuu.vvv.com": {"auth": "@@Username@@:@@Password@@"}
+	}
+	,"routingTables":
+	{
+		"aaa.bbb.ccc.com":
+		{
+			"destination": "http://ddd.eee.fff.com:61683/broker/queue/msg_routing"
+			,"additionalOptions": {"auth": "@@Username@@:@@Password@@"}
+		}
+	}
+	,"brokers":
+	{
+		"MyMsgBroker_1":
+		{
+			"url": "tcp://xxx.yyy.zzz.com:61613/"
+			,"brokerOptions": {
+				"reconnectIntervalMS": 10000
+				,"outgoingHeartBeatMS": 10000
+				,"heartBeatScaleFactor": 0.8
+			}
+			,"loginOptions":
+			{
+				"login": "@@Username@@"
+				,"passcode": "@@Password@@"
+			}
+			,"show_heart_beat": false
+			,"debug": false
+			,"processors":
+			{
+				"msg_routing":
+				{
+					"incoming": "/queue/msg_routing"
+					,"subscribe_headers": {"ack": "client"}
+					,"handler_path": "C:/run/scripts/msg_routing"
+				}
+			}
+		}
+		,"MyMsgBroker_2":
+		{
+			"url": "ws://ttt.uuu.vvv.com:61614/"
+			,"brokerOptions": {
+				"reconnectIntervalMS": 10000
+				,"outgoingHeartBeatMS": 10000
+				,"heartBeatScaleFactor": 0.8
+			}
+			,"loginOptions":
+			{
+				"login": "@@Username@@"
+				,"passcode": "@@Password@@"
+			}
+			,"show_heart_beat": false
+			,"debug": false
+			,"processors":
+			{
+				"msg_routing":
+				{
+					"incoming": "/queue/msg_routing"
+					,"subscribe_headers": {"ack": "client"}
+					,"handler_path": "C:/run/scripts/msg_routing"
+				}
+			}
+		}
+	}
+}
