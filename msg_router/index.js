@@ -26,7 +26,7 @@ module.exports = function(broker, message) {
 			var additionalOptions = null;
 			var headers = null;
 			var messageString = null;
-			console.log('destination broker =' + brokerHost);
+			console.log('destination broker=' + brokerHost);
 			var ret = supportBrokerDestination(brokerHost);
 			if (ret.supported) {
 				additionalOptions = ret.additionalOptions;
