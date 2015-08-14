@@ -9,7 +9,7 @@ function supportBrokerDestination(brokerHost) {
 	if (typeof supportedBrokerHosts[brokerHost] === 'undefined')
 		return {supported: false};
 	else
-		return {supported: true, additionalOptions: supportedBrokerHosts[brokerHost]}; 
+		return {supported: true, params: supportedBrokerHosts[brokerHost]}; 
 }
 
 // get the forward destination object for the brokerHost
@@ -29,7 +29,13 @@ module.exports = function(broker, message) {
 			console.log('destination broker=' + brokerHost);
 			var ret = supportBrokerDestination(brokerHost);
 			if (ret.supported) {
-				additionalOptions = ret.additionalOptions;
+				var translatedHostname = ret.params.hostname;	// translated host name
+				if (typeof translatedHostname === 'string' && translatedHostname.length > 0 && translatedHostname !== brokerHost) {
+					pd.options.hostname = translatedHostname;
+					destinationUrl = StompRESTMsgBroker.makeDestinationUrl(pd.protocol, pd.options);
+				}
+				brokerHost = pd.options.hostname;
+				additionalOptions = ret.params.additionalOptions;
 				headers = routedMsg.headers;
 				messageString = routedMsg.message;
 			} else {

@@ -1,14 +1,22 @@
 {
 	"supportedBrokerHosts":
 	{
-		"xxx.yyy.zzz.com": {"auth": "@@Username@@:@@Password@@"}
-		,"ttt.uuu.vvv.com": {"auth": "@@Username@@:@@Password@@"}
+		"@@BrokerAlias1@@":
+		{
+			"hostname": "ppp.qqq.com"
+			,"additionalOptions": {"auth": "@@Username@@:@@Password@@"}
+		}
+		,"@@BrokerAlias2@@":
+		{
+			"hostname": "rrr.sss.com"
+			,"additionalOptions": {"auth": "@@Username@@:@@Password@@"}
+		}
 	}
 	,"routingTable":
 	{
-		"aaa.bbb.ccc.com":
+		"@@BrokerAlias3@@":
 		{
-			"destination": "http://ddd.eee.fff.com:61683/broker/queue/msg_routing"
+			"destination": "http://ddd.eee.com:61682/broker/queue/eee_dot_com_msg_routing"
 			,"additionalOptions": {"auth": "@@Username@@:@@Password@@"}
 		}
 	}
@@ -16,7 +24,7 @@
 	{
 		"MyMsgBroker_1":
 		{
-			"url": "tcp://xxx.yyy.zzz.com:61613/"
+			"url": "tcp://yyy.zzz.com:61613/"
 			,"brokerOptions": {
 				"reconnectIntervalMS": 10000
 				,"outgoingHeartBeatMS": 10000
@@ -33,7 +41,7 @@
 			{
 				"msg_routing":
 				{
-					"incoming": "/queue/msg_routing"
+					"incoming": "/queue/mydomain_msg_routing"
 					,"subscribe_headers": {"ack": "client"}
 					,"handler_path": "C:/run/scripts/msg_routing"
 				}
@@ -41,7 +49,7 @@
 		}
 		,"MyMsgBroker_2":
 		{
-			"url": "ws://ttt.uuu.vvv.com:61614/"
+			"url": "ws://www.xxx.com:61614/"
 			,"brokerOptions": {
 				"reconnectIntervalMS": 10000
 				,"outgoingHeartBeatMS": 10000
@@ -58,7 +66,7 @@
 			{
 				"msg_routing":
 				{
-					"incoming": "/queue/msg_routing"
+					"incoming": "/queue/mydomain_msg_routing"
 					,"subscribe_headers": {"ack": "client"}
 					,"handler_path": "C:/run/scripts/msg_routing"
 				}
