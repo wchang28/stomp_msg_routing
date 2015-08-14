@@ -1,16 +1,19 @@
 {
-	"supportedBrokerHosts":
+	"brokerHostsAdditionalOptions":
 	{
-		"@@BrokerAlias1@@":
+		"@@BrokerHost1@@":
 		{
-			"hostname": "ppp.qqq.com"
-			,"additionalOptions": {"auth": "@@Username@@:@@Password@@"}
+			"auth": "@@Username@@:@@Password@@"
 		}
-		,"@@BrokerAlias2@@":
+		,"@@BrokerHost2@@":
 		{
-			"hostname": "rrr.sss.com"
-			,"additionalOptions": {"auth": "@@Username@@:@@Password@@"}
+			"auth": "@@Username@@:@@Password@@"
 		}
+	}
+	,"brokerAliases":
+	{
+		"@@BorkerAlias1": "@@BrokerHost1@@"
+		,"@@BorkerAlias2": "@@BrokerHost2@@"
 	}
 	,"routingTable":
 	{

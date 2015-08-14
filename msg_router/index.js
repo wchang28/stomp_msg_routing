@@ -4,12 +4,18 @@ var StompRESTMsgBroker = require('stomp-rest-msg-broker');
 var config = require('stomp_msg_connector').getConfig();
 
 function supportBrokerDestination(brokerHost) {
-	var supportedBrokerHosts = config["supportedBrokerHosts"];
-	if (!supportedBrokerHosts) return {supported: false};
-	if (typeof supportedBrokerHosts[brokerHost] === 'undefined')
+	var brokerAliases = config["brokerAliases"];
+	var brokerHostsAdditionalOptions = config["brokerHostsAdditionalOptions"];
+	if (!brokerAliases) return {supported: false};
+	var hostname = brokerAliases[brokerHost];
+	if (typeof hostname === 'undefined')
 		return {supported: false};
-	else
-		return {supported: true, params: supportedBrokerHosts[brokerHost]}; 
+	else {
+		var ret = {supported: true, params: {}};
+		ret.params.hostname = hostname;
+		ret.params.additionalOptions = (brokerHostsAdditionalOptions ? (brokerHostsAdditionalOptions[hostname] ? brokerHostsAdditionalOptions[hostname] : null) : null);
+		return ret;
+	}
 }
 
 // get the forward destination object for the brokerHost
